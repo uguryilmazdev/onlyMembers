@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  header
+    div.d-flex.align-items-center.justify-content-around.py-3
+      h1.fs-2 OnlyMembers
+      div
+        button.btn.btn-primary.me-3.px-4.py-2(type="button" data-bs-toggle="modal" data-bs-target="#login-screen") Log In
+        button.btn.btn-primary.ms-3.px-4.py-2(type="button" data-bs-toggle="modal" data-bs-target="#signup-screen") Sign Up
+  main
+    h2.fs-1.text-center.p-4.bg-body-tertiary.border-top Messages
+
+  include login-dialog.pug
+  include signup-dialog.pug

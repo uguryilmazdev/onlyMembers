@@ -1,0 +1,22 @@
+// Sign up dialog
+div.container-fluid.modal.fade(id="signup-screen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labeledby="signup-screen-label" aria-hidden="true")
+    div.modal-dialog.modal-dialog-centered
+        div.modal-content
+            div.modal-body
+                form
+                    div.d-flex.justify-content-end.mb-2
+                        button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                    div.form-group.mb-3
+                        label.form-label(for="signup-name") #[strong Name]
+                        input.form-control(type="text" id="signup-name")
+                    div.form-group.mb-3
+                        label.form-label(for="signup-email") #[strong Email address] 
+                        input.form-control(type="email" id="signup-email")
+                    div.form-group.mb-3
+                        label.form-label(for="signup-password") #[strong Password] 
+                        input.form-control(type="password" id="signup-password")
+                    div.form-group.mb-3
+                        label.form-label(for="signup-confirm-password") #[strong Confirm Password] 
+                        input.form-control(type="password" id="signup-confirm-password")
+                    div.d-grid.col
+                        button.btn.btn-primary(type="submit") Sign Up
