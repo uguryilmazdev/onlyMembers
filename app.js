@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,6 +10,16 @@ var logger = require('morgan');
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+
+// Set up mongoose connection
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+
+main().catch((err) => {console.log(err)});
+async function main() {
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("MongoDB connected.")
+}
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
