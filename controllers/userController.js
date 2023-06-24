@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const {body, validationResult} = require("express-validator");
+const bcrypt = require('bcrypt');
 
 const User = require("../models/user");
 
@@ -65,8 +66,7 @@ exports.user_create_post = [
         const user = User({
             name: req.body.signupName,
             email: req.body.signupEmail,
-            password: req.body.signupPassword,
-            passwordConfirmation: req.body.signupConfirmPassword,
+            password: await bcrypt.hash(req.body.signupPassword, 10),
         });
 
         console.log(user);
@@ -84,8 +84,7 @@ exports.user_create_post = [
               } catch (error) {
                 console.log(error);
                 next(error);
-              }
-              
+              }   
         }
     }),
 ];

@@ -25,16 +25,6 @@ const UserSchema = new Schema({
             },
             message: "Must contain 8 characters: one uppercase, one lowercase, one number and one special character."    
     }},
-    passwordConfirmation: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(value) {
-                return value === this.password;
-            },
-            message: "Passwords must match."
-        }
-    },
     messages: [{type: Schema.Types.ObjectId, ref: "Messages"}]
 })
 
