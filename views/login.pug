@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center
+        div.col-11.col-sm-10.col-md-8.col-lg-6.mb-5
+            h1.text-center.mb-5 Log in to OnlyMembers!
+            form(method="POST" actions="")
+                div.form-group.mb-3
+                    label.form-label(for="login-email") #[strong Email address] 
+                    input.form-control(type="email" id="login-email")
+                div.form-group.mb-3
+                    label.form-label(for="login-password") #[strong Password] 
+                    input.form-control(type="password" id="login-password")
+                div.d-grid.col
+                    button.btn.btn-primary(type="submit") Log In
+            
+        a.btn.btn-success.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
