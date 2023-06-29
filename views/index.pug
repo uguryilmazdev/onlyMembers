@@ -5,7 +5,9 @@ block content
     div.d-flex.align-items-center.justify-content-around.py-3
       h1.fs-2 OnlyMembers
       if user
-        
+        div.d-flex.flex-row.align-items-center
+          a.btn.btn-primary.me-3.px-4.py-2(role="button") New Message
+          a.btn.btn-primary.px-4.py-2(role="button" href="/logout") Log out
       else 
         div
           a.btn.btn-primary.me-3.px-4.py-2(role="button" href="/login") Log In

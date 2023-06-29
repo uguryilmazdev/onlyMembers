@@ -6,12 +6,23 @@ block content
             h1.text-center.mb-5 Log in to OnlyMembers!
             form(method="POST" actions="")
                 div.form-group.mb-3
-                    label.form-label(for="login-email") #[strong Email address] 
-                    input.form-control(type="email" id="login-email")
+                    label.form-label(for="email") #[strong Email address] 
+                    input.form-control(type="email" id="email" name="email")
                 div.form-group.mb-3
-                    label.form-label(for="login-password") #[strong Password] 
-                    input.form-control(type="password" id="login-password")
+                    label.form-label(for="password") #[strong Password] 
+                    input.form-control(type="password" id="password" name="password")
                 div.d-grid.col
-                    button.btn.btn-primary(type="submit") Log In
-            
+                    button.btn.btn-primary(type="submit") Log In   
+
+            if errors && errors .length > 0
+                div.alert.alert-danger.mt-3
+                    each error in errors 
+                        div=error.msg
+
+            if message 
+                div.alert.alert-danger.mt-3
+                    div=message
+
+
         a.btn.btn-success.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
+

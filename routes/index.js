@@ -4,17 +4,22 @@ var router = express.Router();
 // Controllers
 const user_controller = require("../controllers/userController")
 
-// GET home page
+// Display index page on GET
 router.get('/', user_controller.index);
 
-// GET request for CREATING user
+// Display User signup form on GET
 router.get('/signup', user_controller.signup_page);
 
-// POST request for CREATING user
+// Handle User signup on POST
 router.post('/signup', user_controller.user_create_post)
 
-// GET login page
-router.get('/login',user_controller.login_page);
+// Display Login form on GET
+router.get('/login', user_controller.login_page);
 
+// Handle User login on POST
+router.post('/login', user_controller.user_login);
+
+// Handle User logout on GET (redirect to index page)
+router.get('/logout', user_controller.user_logout);
 
 module.exports = router;

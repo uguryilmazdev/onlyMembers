@@ -6,24 +6,23 @@ block content
             h1.text-center.mb-5 Sign up to Only Members!
             form(method="POST" actions="")
                 div.form-group.mb-3
-                    label.form-label(for="signupName") #[strong Name]
-                    input.form-control(type="text" id="signupName" name="signupName")
+                    label.form-label(for="name") #[strong Name]
+                    input.form-control(type="text" id="name" name="name")
                 div.form-group.mb-3
-                    label.form-label(for="signupEmail") #[strong Email address] 
-                    input.form-control(type="email" id="signupEmail" name="signupEmail")
+                    label.form-label(for="email") #[strong Email address] 
+                    input.form-control(type="email" id="email" name="email")
                 div.form-group.mb-3
-                    label.form-label(for="signupPassword") #[strong Password] 
-                    input.form-control(type="password" id="signupPassword" name="signupPassword")
+                    label.form-label(for="password") #[strong Password] 
+                    input.form-control(type="password" id="password" name="password")
                 div.form-group.mb-3
-                    label.form-label(for="signupConfirmPassword") #[strong Confirm Password] 
-                    input.form-control(type="password" id="signupConfirmPassword" name="signupConfirmPassword")
+                    label.form-label(for="confirmPassword") #[strong Confirm Password] 
+                    input.form-control(type="password" id="confirmPassword" name="confirmPassword")
                 div.d-grid.col
                     button.btn.btn-primary(type="submit") Sign Up
             
         a.btn.btn-success.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
 
     if errors 
-        h1 It works
         ul 
             for error in errors 
                 li != error.msg
