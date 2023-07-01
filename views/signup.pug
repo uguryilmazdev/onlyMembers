@@ -6,23 +6,49 @@ block content
             h1.text-center.mb-5 Sign up to Only Members!
             form(method="POST" actions="")
                 div.form-group.mb-3
-                    label.form-label(for="name") #[strong Name]
-                    input.form-control(type="text" id="name" name="name")
+                    label.form-label(for="name") #[strong Username]
+                    input.form-control(type="text" id="name" name="name" required minlength="3" maxlength="64" value=formData.name)
+
+                    if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "name"
+                                div.alert.alert-danger.mt-1=error.msg
+
                 div.form-group.mb-3
                     label.form-label(for="email") #[strong Email address] 
-                    input.form-control(type="email" id="email" name="email")
+                    input.form-control(type="email" id="email" name="email" required value=formData.email)
+
+                    if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "email"
+                                div.alert.alert-danger.mt-1=error.msg
+
                 div.form-group.mb-3
                     label.form-label(for="password") #[strong Password] 
-                    input.form-control(type="password" id="password" name="password")
+                    input.form-control(type="password" id="password" name="password" required value=formData.password)
+
+                    if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "password"
+                                div.alert.alert-danger.mt-1=error.msg
+
                 div.form-group.mb-3
                     label.form-label(for="confirmPassword") #[strong Confirm Password] 
-                    input.form-control(type="password" id="confirmPassword" name="confirmPassword")
+                    input.form-control(type="password" id="confirmPassword" name="confirmPassword" required value=formData.confirmPassword)
+
+                    if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "confirmPassword"
+                                div.alert.alert-danger.mt-1=error.msg
+
                 div.d-grid.col
                     button.btn.btn-primary(type="submit") Sign Up
+
+            if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "existedEmail"
+                                div.alert.alert-danger.mt-3=error.msg
+                            if error.path === "existedUsername"
+                                div.alert.alert-danger.mt-3=error.msg
             
         a.btn.btn-success.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
-
-    if errors 
-        ul 
-            for error in errors 
-                li != error.msg

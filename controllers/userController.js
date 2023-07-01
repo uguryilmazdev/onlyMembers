@@ -11,46 +11,38 @@ exports.index = asyncHandler(async(req, res, next) => {
 
 // Handle signup page
 exports.signup_page = asyncHandler(async(req, res, next) => {
-    res.render("signup");
+    res.render("signup", {errors: [], formData: {}});
 })
 
 // Handle login page
 exports.login_page = asyncHandler(async (req, res, next) => {
-    res.render("login")
+    res.render("login", {errors: [], formData: {}})
 })
 
 // Handle User create on POST.
 exports.user_create_post = [
-       // Validate and sanitize fields.
+    // Validate and sanitize fields.
     body("name")
        .trim()
-       .notEmpty()
-       .withMessage("Name is required.")
        .isLength({min: 3})
-       .withMessage("User name must be at least have 3 characters.")
-       .isLength({max: 20})
-       .withMessage("User name must not exceed 20 characters.")
+       .withMessage("Username must have at least 3 characters.")
+       .isLength({max: 64})
+       .withMessage("Username must not exceed 64 characters.")
        .escape(),
    body("email")
        .trim()
-       .notEmpty()
-       .withMessage("Email is required.")
        .isEmail()
-       .withMessage("Enter a valid mail.")
+       .withMessage("Enter a valid email.")
        .escape(),
     body("password")
         .trim()
-        .notEmpty()
-        .withMessage("Password is required.")
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-        .withMessage('Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,128}$/)
+        .withMessage('Password must have at least 8 characters and must contain one uppercase, one lowercase, one number and one special character.')
         .escape(),
     body("confirmPassword")
         .trim()
-        .notEmpty()
-        .withMessage("Confirm password is required.")
         .custom((value, { req }) => {
-            if (value !== req.body.signupPassword) {
+            if (value !== req.body.password) {
                 throw new Error("Password do not match.")
             }
             return true;
@@ -66,19 +58,40 @@ exports.user_create_post = [
         const user = User({
             name: req.body.name,
             email: req.body.email,
+            // Encrypt the password.
             password: await bcrypt.hash(req.body.password, 10),
         });
-
-        console.log(user);
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
             res.render('signup', {
                 errors: errors.array(),
+                formData: req.body
             });
         } else {
             // Data from form is valid.
             try {
+                // Check username and email for existence.
+                const existingUsername = await User.findOne({name: req.body.name});
+                const existingEmail = await User.findOne({email: req.body.email});
+                
+                if (existingUsername) {
+                    // Username already exists. Re-render signup page.
+                    return res.render("signup", {
+                        errors: [{msg: "The username already exists.", path:"existedUsername"}],
+                        formData: req.body
+                    })
+                }
+
+                if (existingEmail) {
+                    // Email address already exists. Re-render signup page.
+                    return res.render("signup", {
+                        errors: [{msg: "The email address already exists.", path:"existedEmail"}],
+                        formData: req.body
+                    }) 
+                }
+
+                // If it is a new user, save.
                 await user.save();
                 res.redirect("/");
               } catch (error) {
@@ -122,7 +135,10 @@ exports.user_login = [
                 }
 
                 if (!user) {
-                    return res.render("login", {message :info.message})
+                    return res.render("login", {
+                        message: info.message,
+                        formData: req.body
+                    })
                 }
 
                 req.logIn(user, function(err) {
