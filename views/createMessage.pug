@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    div.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center
+        div.col-11.col-sm-10.col-md-8.col-lg-6.mb-5
+            h1.text-center.mb-5 Create Message
+            form(method="POST" action="")
+                textarea.form-control.no-resize(id="message" name="message" rows="15" placeholder="Please enter your message here." required="required")
+                
+                if errors && errors.length > 0
+                        each error in errors 
+                            if error.path === "message"
+                                div.alert.alert-danger.mt-1=error.msg
+                
+                div.d-grid.col
+                    button.btn.btn-success.btn-lg.mt-3(type="submit") Send Message 
+                
+        a.btn.btn-primary.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
