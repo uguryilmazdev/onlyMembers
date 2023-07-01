@@ -5,7 +5,12 @@ block content
         div.col-11.col-sm-10.col-md-8.col-lg-6.mb-5
             h1.text-center.mb-5 Create Message
             form(method="POST" action="")
-                textarea.form-control.no-resize(id="message" name="message" rows="15" placeholder="Please enter your message here." required="required")
+                div.form-group.mb-3
+                    label.form-label(for="messageTitle") #[strong Title]
+                    input.form-control(type="text" id="messageTitle" name="messageTitle" minlength="3" maxlength="128" value=formData.messageTitle placeholder="Please add a title to your message." required)
+                div.form-group.mb-3
+                    label.form-label(for="messageText") #[strong Message]
+                    textarea.form-control.no-resize(id="messageText" name="messageText" rows="15" minlength="1" maxlength="1024" value=formData.messageText placeholder="Please enter your message here." required)
                 
                 if errors && errors.length > 0
                         each error in errors 

@@ -27,6 +27,6 @@ router.get('/logout', user_controller.user_logout);
 router.get("/create_message",message_controller.create_message_page);
 
 // Handle Create Message on POST
-//router.post("/create_message", message_controller.create_message);
+router.post("/create_message", message_controller.create_message);
 
 module.exports = router;

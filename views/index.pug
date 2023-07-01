@@ -14,3 +14,6 @@ block content
           a.btn.btn-primary.ms-3.px-4.py-2(role="button" href="/signup") Sign Up
   main
     h2.fs-1.text-center.p-4.bg-body-tertiary.border-top Messages
+    div
+      each message in messages 
+        div #{message.messageTitle}

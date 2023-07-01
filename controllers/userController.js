@@ -3,10 +3,17 @@ const {body, validationResult} = require("express-validator");
 const bcrypt = require('bcrypt');
 const passport = require("passport");
 const User = require("../models/user");
+const Message = require("../models/message")
 
 // Handle index page
 exports.index = asyncHandler(async(req, res, next) => {
-    res.render("index", {user: req.user});
+    // Get details of messages.
+    const messages = await Message.find().exec();
+    console.log(messages);
+    res.render("index", {
+        user: req.user,
+        messages: messages
+    });
 })
 
 // Handle signup page
