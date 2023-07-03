@@ -9,10 +9,19 @@ const Message = require("../models/message")
 exports.index = asyncHandler(async(req, res, next) => {
     // Get details of messages.
     const messages = await Message.find({}).sort({createdAt: -1}).populate("user").exec();
-    console.log(messages);
+
+    const currentPage = req.query.page || 1; // messages?page=
+    const pageSize = 8; // messages per page
+    const pageCount = Math.ceil(messages.length / pageSize); // total page 
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = currentPage * pageSize;
+    const selectedMessage = messages.slice(startIndex, endIndex);
+
     res.render("index", {
         user: req.user,
-        messages: messages
+        messages: selectedMessage,
+        currentPage: currentPage,
+        pageCount: pageCount,
     });
 })
 

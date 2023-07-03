@@ -8,6 +8,8 @@ const message_controller = require("../controllers/messageController")
 // Display index page on GET
 router.get('/', user_controller.index);
 
+router.get('/messages', user_controller.index);
+
 // Display User signup form on GET
 router.get('/signup', user_controller.signup_page);
 

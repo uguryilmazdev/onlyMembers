@@ -20,13 +20,16 @@ block content
         div
           a.btn.btn-primary.me-3.px-4.py-2(role="button" href="/login") Log In
           a.btn.btn-primary.ms-3.px-4.py-2(role="button" href="/signup") Sign Up
+
   main
     h2.fs-1.text-center.mb-5.p-4.bg-body-tertiary.border-top Messages
     div.d-flex.flex-column.align-items-center
-      each message in messages 
+      each message in messages
         div.card.col-11.col-sm-10.col-md-8.col-lg-6.mb-5
           div.card-header.p-3.text-bg-dark #{message.messageTitle}
           div.card-body.text-bg-light #{message.messageText}
           div.card-footer.d-flex.justify-content-between
             strong Created by #{message.user.name}
             strong Sent on #{message.createdAt.toLocaleDateString()}, #{message.createdAt.getHours()}:#{message.createdAt.getMinutes()}:#{message.createdAt.getSeconds()}
+
+    include pagination.pug
