@@ -7,7 +7,15 @@ block content
       if user
         div.d-flex.flex-row.align-items-center
           a.btn.btn-primary.me-3.px-4.py-2(role="button" href="/create_message") New Message
-          a.btn.btn-primary.px-4.py-2(role="button" href="/logout") Log out
+          div.dropdown
+            button.btn.btn-primary.dropdown-toggle.px-4.py-2(type="button" data-bs-toggle="dropdown" aria-expanded="false") Account 
+            ul.dropdown-menu
+              li
+                strong.dropdown-item-text Hello, #{user.name}
+              li
+                a.dropdown-item.btn.btn-primary.px-4.py-2(role="button") Your Mesages
+              li
+                a.dropdown-item.btn.btn-primary.px-4.py-2(role="button" href="/logout") Log Out
       else 
         div
           a.btn.btn-primary.me-3.px-4.py-2(role="button" href="/login") Log In
