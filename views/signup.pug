@@ -9,6 +9,7 @@ block content
                     label.form-label(for="name") #[strong Username]
                     input.form-control(type="text" id="name" name="name" required minlength="3" maxlength="64" value=formData.name)
 
+                    // ERRORS
                     if errors && errors.length > 0
                         each error in errors 
                             if error.path === "name"
@@ -18,6 +19,7 @@ block content
                     label.form-label(for="email") #[strong Email address] 
                     input.form-control(type="email" id="email" name="email" required value=formData.email)
 
+                    // ERRORS
                     if errors && errors.length > 0
                         each error in errors 
                             if error.path === "email"
@@ -27,6 +29,7 @@ block content
                     label.form-label(for="password") #[strong Password] 
                     input.form-control(type="password" id="password" name="password" required value=formData.password)
 
+                    // ERRORS
                     if errors && errors.length > 0
                         each error in errors 
                             if error.path === "password"
@@ -36,6 +39,7 @@ block content
                     label.form-label(for="confirmPassword") #[strong Confirm Password] 
                     input.form-control(type="password" id="confirmPassword" name="confirmPassword" required value=formData.confirmPassword)
 
+                    // ERRORS
                     if errors && errors.length > 0
                         each error in errors 
                             if error.path === "confirmPassword"
@@ -44,6 +48,7 @@ block content
                 div.d-grid.col
                     button.btn.btn-primary(type="submit") Sign Up
 
+            // ERRORS
             if errors && errors.length > 0
                         each error in errors 
                             if error.path === "existedEmail"

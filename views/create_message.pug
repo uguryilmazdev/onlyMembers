@@ -9,15 +9,28 @@ block content
                     label.form-label(for="messageTitle") #[strong Title]
                     input.form-control(type="text" id="messageTitle" name="messageTitle" minlength="3" maxlength="128" value=formData.messageTitle placeholder="Please add a title to your message." required)
                 div.form-group.mb-3
-                    label.form-label(for="messageText") #[strong Message]
-                    textarea.form-control.no-resize(id="messageText" name="messageText" rows="15" minlength="1" maxlength="1024" value=formData.messageText placeholder="Please enter your message here." required)
-                
+                    div.d-flex.flex-row.justify-content-between
+                        label.form-label(for="messageText") #[strong Message]
+                        div(id="characterCount")
+                    textarea.form-control.no-resize(id="messageText" name="messageText" rows="15" minlength="1"
+                    maxlength="1024" value=formData.messageText placeholder="Please enter your message here." required
+                    oninput="countCharacters()")
+            
+                // ERRORS
                 if errors && errors.length > 0
                         each error in errors 
-                            if error.path === "message"
-                                div.alert.alert-danger.mt-1=error.msg
+                            div.alert.alert-danger.mt-1=error.msg
                 
                 div.d-grid.col
                     button.btn.btn-success.btn-lg.mt-3(type="submit") Send Message 
                 
         a.btn.btn-primary.px-4.py-2.mt-5(role="button" href="/") Back to Main Menu
+
+    // Count message text length.
+    script.
+        function countCharacters() {
+            const area = document.querySelector("#messageText");
+            let characterCount = area.value.length;
+            const characterCountElement = document.querySelector("#characterCount");
+            characterCountElement.innerText = characterCount;
+        }

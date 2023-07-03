@@ -8,7 +8,7 @@ const Message = require("../models/message")
 // Handle index page
 exports.index = asyncHandler(async(req, res, next) => {
     // Get details of messages.
-    const messages = await Message.find().exec();
+    const messages = await Message.find({}).sort({createdAt: -1}).populate("user").exec();
     console.log(messages);
     res.render("index", {
         user: req.user,
