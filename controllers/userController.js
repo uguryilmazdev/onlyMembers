@@ -17,11 +17,15 @@ exports.index = asyncHandler(async(req, res, next) => {
     const endIndex = currentPage * pageSize;
     const selectedMessage = messages.slice(startIndex, endIndex);
 
+    // check user has authenticated?
+    const isAuthenticated = req.isAuthenticated(); 
+
     res.render("index", {
         user: req.user,
         messages: selectedMessage,
         currentPage: currentPage,
         pageCount: pageCount,
+        isAuthenticated: isAuthenticated,
     });
 })
 

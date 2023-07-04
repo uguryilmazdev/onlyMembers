@@ -68,6 +68,9 @@ exports.member_messages = asyncHandler(async(req,res,next) => {
     const selectedMessage = messages.slice(startIndex, endIndex);
     let memberMessages = false;
 
+    // check user has authenticated?
+    const isAuthenticated = req.isAuthenticated(); 
+
     // if true, show member's own messages
     // else, show other member's messages
     if (req.user.url === req.params.id) {
@@ -81,5 +84,6 @@ exports.member_messages = asyncHandler(async(req,res,next) => {
         currentPage: currentPage,
         pageCount: pageCount,
         memberMessages: memberMessages,
+        isAuthenticated: isAuthenticated,
     });
 })

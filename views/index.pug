@@ -29,9 +29,12 @@ block content
           div.card-header.p-3.text-bg-dark #{message.messageTitle}
           div.card-body.text-bg-light #{message.messageText}
           div.card-footer.d-flex.justify-content-between
-            strong 
-              | Created by 
-              a(href=`${message.user.url}/messages?page=1`) #{message.user.name}
-            strong Sent on #{message.createdAt.toLocaleDateString()}, #{message.createdAt.getHours()}:#{message.createdAt.getMinutes()}:#{message.createdAt.getSeconds()}
+            if isAuthenticated
+              strong 
+                | Created by 
+                a(href=`${message.user.url}/messages?page=1`) #{message.user.name}
+              strong Sent on #{message.createdAt.toLocaleDateString()}, #{message.createdAt.getHours()}:#{message.createdAt.getMinutes()}:#{message.createdAt.getSeconds()}
+            else 
+              strong Please log in to see details.
 
     include pagination.pug
