@@ -6,8 +6,11 @@ const user_controller = require("../controllers/userController")
 const message_controller = require("../controllers/messageController")
 
 // Display index page on GET
-router.get('/', user_controller.index);
+router.get('/', function (req, res, next) {
+    res.redirect("/messages?page=1");
+});
 
+// Display messages on GET (localhost:3000/messages?page=2)
 router.get('/messages', user_controller.index);
 
 // Display User signup form on GET
@@ -30,5 +33,8 @@ router.get("/create_message",message_controller.create_message_page);
 
 // Handle Create Message on POST
 router.post("/create_message", message_controller.create_message);
+
+// Display Member Messages on GET
+router.get("/user/:id/messages", message_controller.member_messages);
 
 module.exports = router;

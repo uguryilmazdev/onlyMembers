@@ -56,3 +56,30 @@ exports.create_message = [
 
 
 ];
+
+exports.member_messages = asyncHandler(async(req,res,next) => {
+    const messages = await Message.find({user: req.params.id}).sort({createdAt: -1}).populate("user").exec();
+
+    const currentPage = req.query.page || 1; // messages?page=
+    const pageSize = 8; // messages per page
+    const pageCount = Math.ceil(messages.length / pageSize); // total page 
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = currentPage * pageSize;
+    const selectedMessage = messages.slice(startIndex, endIndex);
+    let memberMessages = false;
+
+    // if true, show member's own messages
+    // else, show other member's messages
+    if (req.user.url === req.params.id) {
+        memberMessages = true;
+    }
+
+    res.render("member_messages", {
+        user: req.user,
+        userid: req.params.id,
+        messages: selectedMessage,
+        currentPage: currentPage,
+        pageCount: pageCount,
+        memberMessages: memberMessages,
+    });
+})

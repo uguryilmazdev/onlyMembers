@@ -3,7 +3,7 @@ extends layout
 block content
   header
     div.d-flex.align-items-center.justify-content-around.py-3
-      h1.fs-2 OnlyMembers
+      a.fs-2.text-decoration-none.text-dark(href="/messages?page=1") OnlyMembers
       if user
         div.d-flex.flex-row.align-items-center
           a.btn.btn-primary.me-3.px-4.py-2(role="button" href="/create_message") New Message
@@ -13,7 +13,7 @@ block content
               li
                 strong.dropdown-item-text Hello, #{user.name}
               li
-                a.dropdown-item.btn.btn-primary.px-4.py-2(role="button") Your Mesages
+                a.dropdown-item.btn.btn-primary.px-4.py-2(role="button" href=`${user.url}/messages?page=1`) Your Mesages
               li
                 a.dropdown-item.btn.btn-primary.px-4.py-2(role="button" href="/logout") Log Out
       else 
@@ -29,7 +29,9 @@ block content
           div.card-header.p-3.text-bg-dark #{message.messageTitle}
           div.card-body.text-bg-light #{message.messageText}
           div.card-footer.d-flex.justify-content-between
-            strong Created by #{message.user.name}
+            strong 
+              | Created by 
+              a(href=`${message.user.url}/messages?page=1`) #{message.user.name}
             strong Sent on #{message.createdAt.toLocaleDateString()}, #{message.createdAt.getHours()}:#{message.createdAt.getMinutes()}:#{message.createdAt.getSeconds()}
 
     include pagination.pug

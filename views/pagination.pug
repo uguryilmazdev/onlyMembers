@@ -1,19 +1,29 @@
 nav.mb-5(aria-label="Pagination")
+      - console.log(memberMessages)
       ul.pagination.justify-content-center
         - if (Number(currentPage) > 1)
           // PREVIOUS BUTTON
           li.page-item
-            a.page-link(href=`/messages?page=${Number(currentPage) - 1}`) Previous
+            if memberMessages
+              a.page-link(href=`${user.url}/messages?page=${Number(currentPage) - 1}`) Previous
+            else 
+              a.page-link(href=`/messages?page=${Number(currentPage) - 1}`) Previous
 
         - if (pageCount <= 6)
           // IF PAGECOUNT <= 6 SHOW PAGEBAR WITHOUT "..."
           each page in range(1, pageCount)
             if page === Number(currentPage)
               li.page-item.active(aria-current="page")
-                a.page-link(href=`/messages?page=${page}`)= page
+                if memberMessages
+                  a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                else 
+                  a.page-link(href=`/messages?page=${page}`)= page
             else 
               li.page-item
-                a.page-link(href=`/messages?page=${page}`)= page
+                if memberMessages
+                  a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                else 
+                  a.page-link(href=`/messages?page=${page}`)= page
 
         - else
           - if (Number(currentPage) <= 4)
@@ -21,51 +31,84 @@ nav.mb-5(aria-label="Pagination")
             each page in range(1, 4)
               if page === Number(currentPage)
                 li.page-item.active(aria-current="page")
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
               else 
                 li.page-item
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
             li.page-item.disabled
               span.page-link ... 
             li.page-item
-              a.page-link(href=`/messages?page=${pageCount}`)= pageCount
+              if memberMessages
+                a.page-link(href=`${user.url}/messages?page=${pageCount}`)= pageCount
+              else 
+                a.page-link(href=`/messages?page=${pageCount}`)= pageCount
 
           - else if (Number(currentPage) >= pageCount - 3)
             // ELSE PAGECOUNT > 6 AND CURRENTPAGE >= PAGECOUNT - 3, SHOW PAGEBAR WITH "..." (HEAD OF PAGEBAR)
             li.page-item
-              a.page-link(href=`/messages?page=1`) 1
+              if memberMessages
+                a.page-link(href=`${user.url}/messages?page=1`) 1
+              else 
+                a.page-link(href=`/messages?page=1`) 1
             li.page-item.disabled
               span.page-link ... 
             each page in range(pageCount - 3, pageCount)
               if page === Number(currentPage)
                 li.page-item.active(aria-current="page")
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
               else 
                 li.page-item
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
 
           - else
             // HIGHER PAGECOUNTS, SHOW PAGEBAR WITH TWO "..." (HEAD AND END OF PAGEBAR)
             li.page-item
-              a.page-link(href=`/messages?page=1`) 1
+              if memberMessages
+                a.page-link(href=`${user.url}/messages?page=1`) 1
+              else 
+                a.page-link(href=`/messages?page=1`) 1
             li.page-item.disabled
               span.page-link ... 
             each page in range(Number(currentPage) - 1, Number(currentPage) + 2)
               if page === Number(currentPage)
                 li.page-item.active(aria-current="page")
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
               else 
                 li.page-item
-                  a.page-link(href=`/messages?page=${page}`)= page
+                  if memberMessages
+                    a.page-link(href=`${user.url}/messages?page=${page}`)= page
+                  else 
+                    a.page-link(href=`/messages?page=${page}`)= page
             li.page-item.disabled
               span.page-link ... 
             li.page-item
-              a.page-link(href=`/messages?page=${pageCount}`)= pageCount
+              if memberMessages
+                a.page-link(href=`${user.url}/messages?page=${pageCount}`)= pageCount
+              else 
+                a.page-link(href=`/messages?page=${pageCount}`)= pageCount
 
         - if (Number(currentPage) < pageCount)
           // NEXT BUTTON
           li.page-item
-            a.page-link(href=`/messages?page=${Number(currentPage) + 1}`) Next
+            if memberMessages
+              a.page-link(href=`${user.url}/messages?page=${Number(currentPage) + 1}`) Next
+            else 
+              a.page-link(href=`/messages?page=${Number(currentPage) + 1}`) Next
 
 
 
