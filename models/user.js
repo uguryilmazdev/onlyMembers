@@ -18,8 +18,7 @@ const UserSchema = new Schema({
     password: {
         type: String, 
         required: true, 
-        },
-    messages: [{type: Schema.Types.ObjectId, ref: "Messages"}]
+        }
 })
 
 // Virtual for User's URL
